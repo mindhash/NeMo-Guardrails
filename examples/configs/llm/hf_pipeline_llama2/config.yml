@@ -2,10 +2,10 @@ models:
   - type: main
     engine: hf_pipeline_llama2_13b
     parameters:
-      path: "meta-llama/Llama-2-13b-chat-hf"
+      path: "/mnt/models"
 
       # number of GPUs you have , do nvidia-smi to check
-      num_gpus: 2
+      num_gpus: "auto"
 
       # This can be: "cpu" or "cuda". "mps" is not supported.
       device: "cuda"

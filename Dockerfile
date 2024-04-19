@@ -14,13 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.10
+# FROM python:3.10
+FROM pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
 
 # Install git
 RUN apt-get update && apt-get install -y git
 
 # Install gcc/g++ for annoy
 RUN apt-get install -y gcc g++
+
+RUN pip install accelerate transformers==4.33.1 sentencepiece --upgrade
 
 # Copy and install NeMo Guardrails
 WORKDIR /nemoguardrails
@@ -35,7 +38,7 @@ EXPOSE 8000
 
 # We copy the example bot configurations
 WORKDIR /config
-COPY ./examples/bots /config
+COPY ./examples/configs/llm/hf_pipeline_llama2 /config
 
 # Run app.py when the container launches
 WORKDIR /nemoguardrails

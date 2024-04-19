@@ -97,6 +97,12 @@ def init_main_llm(config: RailsConfig):
     # model_name = "< path_to_the_saved_custom_llm_checkpoints >"  # loading model ckpt from disk
     model_config = _get_model_config(config, "main")
     model_path = model_config.parameters.get("path")
+
+    try:
+        model_path = os.environ["MODEL_NAME"]
+    except:
+        print(f"using custom model weights from path {model_path}")
+
     device = model_config.parameters.get("device", "cuda")
     num_gpus = model_config.parameters.get("num_gpus", 1)
     hf_token = os.environ[
